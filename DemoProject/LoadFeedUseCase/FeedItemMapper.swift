@@ -8,11 +8,11 @@
 import Foundation
 
 final class FeedItemMapper {
-    static func map(data: Data, response: HTTPURLResponse) -> RemoteFeedLoaderResult {
+    static func map(data: Data, response: HTTPURLResponse) -> FeedLoaderResult {
         
         guard (200..<300).contains(response.statusCode),
               let root = try? JSONDecoder().decode(Root.self, from: data)
-        else { return .failure(.invalidData) }
+        else { return .failure(RemoteFeedLoader.Error.invalidData) }
         return .success(root.feedItems)
     }
 }
