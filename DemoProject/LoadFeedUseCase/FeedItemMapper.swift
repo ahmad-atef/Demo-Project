@@ -8,16 +8,24 @@
 import Foundation
 
 final class FeedItemMapper {
-    static func map(data: Data, response: HTTPURLResponse) throws -> [FeedItem] {
-        guard (200..<300).contains(response.statusCode) else { throw RemoteFeedLoader.Error.invalidData }
-        let root = try JSONDecoder().decode(Root.self, from: data)
-        let feedItems = root.items.map { $0.feedItem }
-        return feedItems
+    static func map(data: Data, response: HTTPURLResponse) -> RemoteFeedLoaderResult {
+        
+        guard (200..<300).contains(response.statusCode),
+              let root = try? JSONDecoder().decode(Root.self, from: data)
+        else { return .failure(.invalidData) }
+        return .success(root.feedItems)
     }
 }
 
 struct Root: Decodable {
-    let items: [APIFeedItem]
+    let apiFeedItems: [APIFeedItem]
+    var feedItems: [FeedItem] {
+        apiFeedItems.map { $0.feedItem }
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case apiFeedItems = "items"
+    }
 }
 
 /// DTO: Data Transfer Object representing the
