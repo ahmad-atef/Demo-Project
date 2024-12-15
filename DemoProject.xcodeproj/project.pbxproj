@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E2D51B172D0F86E700123DF0 /* DemoProject.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DemoProject.xctestplan; sourceTree = "<group>"; };
 		E2DD580B2D0A45B000671B31 /* DemoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2DD581B2D0A45B100671B31 /* DemoProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2DD58252D0A45B100671B31 /* DemoProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,11 +39,6 @@
 		E2DD581E2D0A45B100671B31 /* DemoProjectTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = DemoProjectTests;
-			sourceTree = "<group>";
-		};
-		E2DD58282D0A45B100671B31 /* DemoProjectUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = DemoProjectUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +71,9 @@
 		E2DD58022D0A45B000671B31 = {
 			isa = PBXGroup;
 			children = (
+				E2D51B172D0F86E700123DF0 /* DemoProject.xctestplan */,
 				E2DD580D2D0A45B000671B31 /* DemoProject */,
 				E2DD581E2D0A45B100671B31 /* DemoProjectTests */,
-				E2DD58282D0A45B100671B31 /* DemoProjectUITests */,
 				E2DD580C2D0A45B000671B31 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,9 +148,6 @@
 			);
 			dependencies = (
 				E2DD58272D0A45B100671B31 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				E2DD58282D0A45B100671B31 /* DemoProjectUITests */,
 			);
 			name = DemoProjectUITests;
 			packageProductDependencies = (
