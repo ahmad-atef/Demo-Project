@@ -7,10 +7,10 @@
 
 import Foundation
 
-public typealias FeedLoaderResult = Result<FeedItem, RemoteFeedLoader.Error>
+public typealias RemoteFeedLoaderResult = Result<[FeedItem], RemoteFeedLoader.Error>
 
 public protocol FeedLoader {
-    func load(completion: @escaping (FeedLoaderResult) -> Void)
+    func load(completion: @escaping (RemoteFeedLoaderResult) -> Void)
 }
 
 
@@ -29,14 +29,23 @@ public final class RemoteFeedLoader: FeedLoader {
         self.client = client
     }
 
-    public func load(completion: @escaping (FeedLoaderResult) -> Void) {
+    public func load(completion: @escaping (RemoteFeedLoaderResult) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case .failure(let error):
-                completion(.failure(.connectivity))
             case .success((let data, let response)):
-                completion(.failure(.invalidData))
+                completion(self.map(data: data, response: response))
+            case .failure:
+                completion(.failure(.connectivity))
             }
+        }
+    }
+    
+    private func map(data: Data, response: HTTPURLResponse) -> RemoteFeedLoaderResult {
+        do {
+            let items = try FeedItemMapper.map(data: data, response: response)
+            return .success(items)
+        } catch {
+            return .failure(.invalidData)
         }
     }
 }
