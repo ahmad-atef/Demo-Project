@@ -23,7 +23,7 @@ public final class RemoteFeedLoader: FeedLoader {
     private let url: URL
     private let client: HTTPClient
     
-    public init(url: URL, client: HTTPClient) {
+    public init(url: URL, client: HTTPClient = URLSessionHTTPClient.default) {
         self.url = url
         self.client = client
     }
