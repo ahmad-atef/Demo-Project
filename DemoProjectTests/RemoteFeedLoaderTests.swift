@@ -126,6 +126,23 @@ final class RemoteFeedLoaderTests: XCTestCase {
         )
     }
     
+    func test_load_dosNotDeliverResultAfterLoaderHasBeenDeallocated() {
+        // given
+        let client = SpyClient()
+        var sut: RemoteFeedLoader? = RemoteFeedLoader(url: .given, client: client)
+        var capturedResult: RemoteFeedLoaderResult?
+        
+        // when
+        sut?.load { result in
+            capturedResult = result
+        }
+        sut = nil
+        client.complete(withStatusCode: 200)
+        
+        // then
+        XCTAssertNil(capturedResult)
+    }
+    
     // MARK: Helper
     /// Factory method to create the SUT: `RemoteFeedLoader` along with the Testing dependency: `SpyClient`
     private func makeSUT(url: URL = .given, file: StaticString = #filePath, line: UInt = #line) -> (RemoteFeedLoader, SpyClient) {
